@@ -15,7 +15,7 @@ If you want to use ConnectionStatusView
         android:layout_height="48dp"
         app:dismissOnComplete="true" />
 ```
-If you want to use you own layout for statuses
+If you want to use your own layout for status
 ```java
 <iammert.com.library.StatusView
         android:id="@+id/status"
@@ -35,7 +35,7 @@ statusView.setStatus(Status.COMPLETE);
 statusView.setStatus(Status.IDLE);
 ```
 
-If you want to dismiss automagically after on complete is called, then add ```app:dismissOnComplete="true"``` as attribute.
+If you want to dismiss automagically after oncomplete is called, then add ```app:dismissOnComplete="true"``` as attribute.
 
 
 License
