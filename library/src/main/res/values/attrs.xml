@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="statusview">
+        <attr name="complete" format="reference" />
+        <attr name="error" format="reference" />
+        <attr name="loading" format="reference" />
+    </declare-styleable>
+</resources>
