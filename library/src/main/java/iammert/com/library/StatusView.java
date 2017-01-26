@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -38,8 +39,8 @@ public class StatusView extends RelativeLayout {
     /**
      * Fade in out animations
      */
-    private Animation fadeOut;
-    private Animation fadeIn;
+    private Animation slideOut;
+    private Animation slideIn;
 
     /**
      * layout inflater
@@ -74,9 +75,8 @@ public class StatusView extends RelativeLayout {
          */
         currentStatus = Status.IDLE;
         hideOnComplete = true;
-        setVisibility(View.INVISIBLE);
-        fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in);
-        fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out);
+        slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in);
+        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out);
         inflater = LayoutInflater.from(context);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.statusview);
@@ -94,6 +94,14 @@ public class StatusView extends RelativeLayout {
         completeView = inflater.inflate(completeLayoutId, null);
         errorView = inflater.inflate(errorLayoutId, null);
         loadingview = inflater.inflate(loadingLayoutId, null);
+
+        completeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        errorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        loadingview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        addView(completeView);
+        addView(errorView);
+        addView(loadingview);
 
         /**
          * set visibilities of childs
@@ -130,16 +138,17 @@ public class StatusView extends RelativeLayout {
         return null;
     }
 
-    private void switchAnimation(final View exitView, View enterView) {
+    private void switchAnimation(final View exitView, final View enterView) {
+        clearAnimation();
         exitView.setVisibility(View.VISIBLE);
-        enterView.setVisibility(View.VISIBLE);
-        exitView.startAnimation(fadeOut);
-        enterView.startAnimation(fadeIn);
-        fadeOut.setAnimationListener(new SimpleAnimListener() {
+        exitView.startAnimation(slideOut);
+        slideOut.setAnimationListener(new SimpleAnimListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
+                slideOut.setAnimationListener(null);
                 exitView.setVisibility(View.INVISIBLE);
-                fadeOut.setAnimationListener(null);
+                enterView.setVisibility(View.VISIBLE);
+                enterView.startAnimation(slideIn);
             }
         });
     }
@@ -149,19 +158,20 @@ public class StatusView extends RelativeLayout {
             return;
 
         enterView.setVisibility(VISIBLE);
-        enterView.startAnimation(fadeIn);
+        enterView.startAnimation(slideIn);
     }
 
     private void exitAnimation(final View exitView) {
         if(exitView == null)
             return;
 
-        exitView.startAnimation(fadeOut);
-        fadeOut.setAnimationListener(new SimpleAnimListener() {
+        exitView.startAnimation(slideOut);
+        slideOut.setAnimationListener(new SimpleAnimListener() {
             @Override
             public void onAnimationEnd(Animation animation) {
-                exitView.setVisibility(View.INVISIBLE);
-                fadeOut.setAnimationListener(null);
+                currentStatus = Status.IDLE;
+                exitView.setVisibility(INVISIBLE);
+                slideOut.setAnimationListener(null);
             }
         });
     }
