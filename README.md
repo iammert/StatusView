@@ -1,6 +1,7 @@
 # StatusView
 Custom status view for Android.
 
+<img src="https://raw.githubusercontent.com/iammert/StatusView/master/art/art.gif"/>
 
 # Usage
 
