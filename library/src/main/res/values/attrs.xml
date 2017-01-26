@@ -4,5 +4,6 @@
         <attr name="complete" format="reference" />
         <attr name="error" format="reference" />
         <attr name="loading" format="reference" />
+        <attr name="dismissOnComplete" format="boolean"/>
     </declare-styleable>
 </resources>

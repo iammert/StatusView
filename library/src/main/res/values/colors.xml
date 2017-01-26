@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_bg_loading">#858585</color>
+    <color name="color_bg_success">#82ce32</color>
+    <color name="color_bg_error">#d84315</color>
+
+</resources>

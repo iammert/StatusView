@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="iammert.com.statusview.MainActivity">
-    
-    
+
+
+    <iammert.com.library.ConnectionStatusView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        app:dismissOnComplete="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <iammert.com.library.StatusView
-            android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:complete="@layout/layout_status_complete"
-            app:error="@layout/layout_status_error"
-            app:loading="@layout/layout_status_loading"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
 
 
         <Button
             android:id="@+id/complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="complete"/>
+            android:text="complete" />
 
         <Button
             android:id="@+id/error"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="error"/>
+            android:text="error" />
 
         <Button
             android:id="@+id/loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="loading"/>
+            android:text="loading" />
 
         <Button
             android:id="@+id/idle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="idle"/>
+            android:text="idle" />
 
     </LinearLayout>
+
 
 </RelativeLayout>

@@ -3,7 +3,7 @@ package iammert.com.library;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
-import android.support.annotation.Nullable;
+import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
  */
 
 public class StatusView extends RelativeLayout {
+
+    private static final int DISMISS_ON_COMPLETE_DELAY = 1000;
 
     /**
      * Current status of status view
@@ -47,28 +49,44 @@ public class StatusView extends RelativeLayout {
      */
     private LayoutInflater inflater;
 
-    public StatusView(Context context) {
+    /**
+     * Handler
+     */
+    private Handler handler;
+
+    /**
+     * Auto dismiss on complete
+     */
+    private Runnable autoDismissOnComplete = new Runnable() {
+        @Override
+        public void run() {
+            exitAnimation(getCurrentView(currentStatus));
+            handler.removeCallbacks(autoDismissOnComplete);
+        }
+    };
+
+    public StatusView(Context context, int completeLayout, int errorLayout, int loadingLayout) {
         super(context);
-        init(context, null);
+        init(context, null, completeLayout, errorLayout, loadingLayout);
     }
 
-    public StatusView(Context context, AttributeSet attrs) {
+    public StatusView(Context context, AttributeSet attrs, int completeLayout, int errorLayout, int loadingLayout) {
         super(context, attrs);
-        init(context, attrs);
+        init(context, attrs, completeLayout, errorLayout, loadingLayout);
     }
 
-    public StatusView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public StatusView(Context context, AttributeSet attrs, int defStyleAttr, int completeLayout, int errorLayout, int loadingLayout) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs);
+        init(context, attrs,completeLayout, errorLayout, loadingLayout);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public StatusView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public StatusView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, int completeLayout, int errorLayout, int loadingLayout) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
+        init(context, attrs,completeLayout, errorLayout, loadingLayout);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    private void init(Context context, AttributeSet attrs, int completeLayout, int errorLayout, int loadingLayout) {
 
         /**
          * Load initial values
@@ -78,6 +96,7 @@ public class StatusView extends RelativeLayout {
         slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in);
         slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out);
         inflater = LayoutInflater.from(context);
+        handler = new Handler();
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.statusview);
 
@@ -88,17 +107,31 @@ public class StatusView extends RelativeLayout {
         int errorLayoutId = a.getResourceId(R.styleable.statusview_error, 0);
         int loadingLayoutId = a.getResourceId(R.styleable.statusview_loading, 0);
 
-        /**
-         * attach view to root
-         */
-        completeView = inflater.inflate(completeLayoutId, null);
-        errorView = inflater.inflate(errorLayoutId, null);
-        loadingview = inflater.inflate(loadingLayoutId, null);
+        hideOnComplete = a.getBoolean(R.styleable.statusview_dismissOnComplete, true);
 
+        /**
+         * inflate layouts
+         */
+        if(completeLayout == 0){
+            completeView = inflater.inflate(completeLayoutId, null);
+            errorView = inflater.inflate(errorLayoutId, null);
+            loadingview = inflater.inflate(loadingLayoutId, null);
+        }else{
+            completeView = inflater.inflate(completeLayout, null);
+            errorView = inflater.inflate(errorLayout, null);
+            loadingview = inflater.inflate(loadingLayout, null);
+        }
+
+        /**
+         * Default layout params
+         */
         completeView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         errorView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         loadingview.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
+        /**
+         * Add layout to root
+         */
         addView(completeView);
         addView(errorView);
         addView(loadingview);
@@ -111,7 +144,6 @@ public class StatusView extends RelativeLayout {
         loadingview.setVisibility(View.INVISIBLE);
 
         a.recycle();
-
     }
 
     public void setStatus(final Status status) {
@@ -124,6 +156,10 @@ public class StatusView extends RelativeLayout {
         } else {
             exitAnimation(getCurrentView(currentStatus));
         }
+
+        handler.removeCallbacksAndMessages(null);
+        if(status == Status.COMPLETE)
+            handler.postDelayed(autoDismissOnComplete, DISMISS_ON_COMPLETE_DELAY);
     }
 
     private View getCurrentView(Status status) {
