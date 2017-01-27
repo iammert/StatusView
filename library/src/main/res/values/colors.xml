@@ -2,8 +2,8 @@
 <resources>
 
     <color name="color_white">#FFFFFF</color>
-    <color name="color_bg_loading">#858585</color>
-    <color name="color_bg_success">#82ce32</color>
-    <color name="color_bg_error">#d84315</color>
+    <color name="color_bg_loading">#dc858585</color>
+    <color name="color_bg_success">#dc82ce32</color>
+    <color name="color_bg_error">#dcd84315</color>
 
 </resources>

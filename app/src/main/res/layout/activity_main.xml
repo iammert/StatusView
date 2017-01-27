@@ -7,12 +7,18 @@
     android:layout_height="match_parent"
     tools:context="iammert.com.statusview.MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="NABER YAAAA"/>
 
     <iammert.com.library.ConnectionStatusView
         android:id="@+id/status"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         app:dismissOnComplete="true" />
+
 
     <LinearLayout
         android:layout_width="match_parent"

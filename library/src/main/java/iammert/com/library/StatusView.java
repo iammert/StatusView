@@ -146,6 +146,14 @@ public class StatusView extends RelativeLayout {
         a.recycle();
     }
 
+    public void setOnErrorClickListener(OnClickListener onErrorClickListener){
+        errorView.setOnClickListener(onErrorClickListener);
+    }
+
+    public void setOnLoadingClickListener(OnClickListener onLoadingClickListener){
+        loadingview.setOnClickListener(onLoadingClickListener);
+    }
+
     public void setStatus(final Status status) {
         if (currentStatus == Status.IDLE) {
             currentStatus = status;
