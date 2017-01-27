@@ -93,8 +93,8 @@ public class StatusView extends RelativeLayout {
          */
         currentStatus = Status.IDLE;
         hideOnComplete = true;
-        slideIn = AnimationUtils.loadAnimation(context, R.anim.slide_in);
-        slideOut = AnimationUtils.loadAnimation(context, R.anim.slide_out);
+        slideIn = AnimationUtils.loadAnimation(context, R.anim.sv_slide_in);
+        slideOut = AnimationUtils.loadAnimation(context, R.anim.sv_slide_out);
         inflater = LayoutInflater.from(context);
         handler = new Handler();
 

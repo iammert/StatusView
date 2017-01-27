@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connecting_text">Bağlantı kuruluyor&#8230;</string>
+    <string name="connected_text">Bağlantı başarılı</string>
+    <string name="connection_error_text">Bağlantı hatası</string>
+</resources>
