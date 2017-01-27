@@ -37,6 +37,22 @@ statusView.setStatus(Status.IDLE);
 
 If you want to dismiss automagically after oncomplete is called, then add ```app:dismissOnComplete="true"``` as attribute.
 
+# Import
+
+Add this to you project build.gradle
+```
+allprojects {
+        repositories {
+                ...
+                maven { url 'https://jitpack.io' }
+        }
+}
+```
+Add this dependency to your app build.gradle
+
+```
+compile 'com.github.iammert:StatusView:1.0'
+```
 
 License
 --------
