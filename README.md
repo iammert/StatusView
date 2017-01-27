@@ -37,6 +37,21 @@ statusView.setStatus(Status.IDLE);
 
 If you want to dismiss automagically after oncomplete is called, then add ```app:dismissOnComplete="true"``` as attribute.
 
+# Getters
+
+You can inflate your custom views for all statuses(ERROR/COMPLETE/LOADING). And you can also get this views to control included UI widgets like button/imageview.
+```java
+View viewError = statusView.getErrorView();
+View viewComplete = statusView.getCompleteView();
+View viewLoading = statusView.getLoadingView();
+```
+
+# Listeners
+```java
+statusView.setOnErrorClickListener(listener);
+statusView.setOnLoadingClickListener(listener);
+```
+
 # Import
 
 Add this to you project build.gradle
@@ -51,7 +66,7 @@ allprojects {
 Add this dependency to your app build.gradle
 
 ```
-compile 'com.github.iammert:StatusView:1.0'
+compile 'com.github.iammert:StatusView:1.2'
 ```
 
 License
