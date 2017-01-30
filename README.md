@@ -32,7 +32,7 @@ Then call status method
 statusView.setStatus(Status.LOADING);
 statusView.setStatus(Status.ERROR);
 statusView.setStatus(Status.COMPLETE);
-statusView.setStatus(Status.IDLE);
+statusView.setStatus(Status.IDLE); //hide status
 ```
 
 If you want to dismiss automagically after oncomplete is called, then add ```app:dismissOnComplete="true"``` as attribute.
