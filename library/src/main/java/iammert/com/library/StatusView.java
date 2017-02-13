@@ -65,6 +65,26 @@ public class StatusView extends RelativeLayout {
         }
     };
 
+    public StatusView(Context context) {
+        super(context);
+        init(context, null, 0, 0, 0);
+    }
+
+    public StatusView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init(context, attrs, 0, 0, 0);
+    }
+
+    public StatusView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init(context, attrs, 0, 0, 0);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public StatusView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
     public StatusView(Context context, int completeLayout, int errorLayout, int loadingLayout) {
         super(context);
         init(context, null, completeLayout, errorLayout, loadingLayout);
@@ -77,13 +97,13 @@ public class StatusView extends RelativeLayout {
 
     public StatusView(Context context, AttributeSet attrs, int defStyleAttr, int completeLayout, int errorLayout, int loadingLayout) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs,completeLayout, errorLayout, loadingLayout);
+        init(context, attrs, completeLayout, errorLayout, loadingLayout);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public StatusView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes, int completeLayout, int errorLayout, int loadingLayout) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs,completeLayout, errorLayout, loadingLayout);
+        init(context, attrs, completeLayout, errorLayout, loadingLayout);
     }
 
     private void init(Context context, AttributeSet attrs, int completeLayout, int errorLayout, int loadingLayout) {
@@ -112,11 +132,11 @@ public class StatusView extends RelativeLayout {
         /**
          * inflate layouts
          */
-        if(completeLayout == 0){
+        if (completeLayout == 0) {
             completeView = inflater.inflate(completeLayoutId, null);
             errorView = inflater.inflate(errorLayoutId, null);
             loadingview = inflater.inflate(loadingLayoutId, null);
-        }else{
+        } else {
             completeView = inflater.inflate(completeLayout, null);
             errorView = inflater.inflate(errorLayout, null);
             loadingview = inflater.inflate(loadingLayout, null);
@@ -146,23 +166,23 @@ public class StatusView extends RelativeLayout {
         a.recycle();
     }
 
-    public void setOnErrorClickListener(OnClickListener onErrorClickListener){
+    public void setOnErrorClickListener(OnClickListener onErrorClickListener) {
         errorView.setOnClickListener(onErrorClickListener);
     }
 
-    public void setOnLoadingClickListener(OnClickListener onLoadingClickListener){
+    public void setOnLoadingClickListener(OnClickListener onLoadingClickListener) {
         loadingview.setOnClickListener(onLoadingClickListener);
     }
 
-    public View getErrorView(){
+    public View getErrorView() {
         return errorView;
     }
 
-    public View getCompleteView(){
+    public View getCompleteView() {
         return completeView;
     }
 
-    public View getLoadingView(){
+    public View getLoadingView() {
         return loadingview;
     }
 
@@ -178,7 +198,7 @@ public class StatusView extends RelativeLayout {
         }
 
         handler.removeCallbacksAndMessages(null);
-        if(status == Status.COMPLETE)
+        if (status == Status.COMPLETE)
             handler.postDelayed(autoDismissOnComplete, DISMISS_ON_COMPLETE_DELAY);
     }
 
@@ -218,7 +238,7 @@ public class StatusView extends RelativeLayout {
     }
 
     private void exitAnimation(final View exitView) {
-        if(exitView == null)
+        if (exitView == null)
             return;
 
         exitView.startAnimation(slideOut);
