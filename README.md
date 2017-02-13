@@ -66,7 +66,7 @@ allprojects {
 Add this dependency to your app build.gradle
 
 ```
-compile 'com.github.iammert:StatusView:1.2'
+compile 'com.github.iammert:StatusView:1.3'
 ```
 
 License
