@@ -174,6 +174,10 @@ public class StatusView extends RelativeLayout {
         loadingview.setOnClickListener(onLoadingClickListener);
     }
 
+    public void setOnCompleteClickListener(OnClickListener onCompleteClickListener){
+        completeView.setOnClickListener(onCompleteClickListener);
+    }
+
     public View getErrorView() {
         return errorView;
     }
