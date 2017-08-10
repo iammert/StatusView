@@ -205,7 +205,14 @@ public class StatusView extends RelativeLayout {
         if (status == Status.COMPLETE)
             handler.postDelayed(autoDismissOnComplete, DISMISS_ON_COMPLETE_DELAY);
     }
-
+    /**
+     * 
+     * @return Status object 
+     */
+    public Status getStatus(){
+        return this.currentStatus;
+    }
+    
     private View getCurrentView(Status status) {
         if (status == Status.IDLE)
             return null;
