@@ -202,7 +202,7 @@ public class StatusView extends RelativeLayout {
         }
 
         handler.removeCallbacksAndMessages(null);
-        if (status == Status.COMPLETE)
+        if (status == Status.COMPLETE && hideOnComplete)
             handler.postDelayed(autoDismissOnComplete, DISMISS_ON_COMPLETE_DELAY);
     }
     /**
